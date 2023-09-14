@@ -69,6 +69,7 @@ public:
    */
   long holdingRegisterRead(int address);
   long holdingRegisterRead(int id, int address);
+  long holdingRegisterRead(int id, int address, int nb, uint16_t *dest);
 
   /**
    * Perform a "Read Input Registers" operation for a single input
@@ -81,6 +82,7 @@ public:
    */
   long inputRegisterRead(int address);
   long inputRegisterRead(int id, int address);
+  long inputRegisterRead(int id, int address, int nb, uint16_t *dest);
 
   /**
    * Perform a "Write Single Coil" operation for the specified address and
@@ -107,6 +109,7 @@ public:
    */
   int holdingRegisterWrite(int address, uint16_t value);
   int holdingRegisterWrite(int id, int address, uint16_t value);
+  int holdingRegisterWrite(int id, int address, int nb, uint16_t *src);
 
   /**
    * Perform a "Mask Write Registers" operation for the specified

@@ -145,6 +145,18 @@ long ModbusClient::holdingRegisterRead(int id, int address)
   return value;
 }
 
+long ModbusClient::holdingRegisterRead(int id, int address, int nb, uint16_t *dest)
+{
+
+  modbus_set_slave(_mb, id);
+  
+  if (modbus_read_registers(_mb, address, nb, dest) < 0) {
+    return -1;
+  }
+
+  return 0;
+}
+
 long ModbusClient::inputRegisterRead(int address)
 {
   return inputRegisterRead(_defaultId, address);
@@ -161,6 +173,17 @@ long ModbusClient::inputRegisterRead(int id, int address)
   }
 
   return value;
+}
+
+long ModbusClient::inputRegisterRead(int id, int address, int nb, uint16_t *dest)
+{
+  modbus_set_slave(_mb, id);
+  
+  if (modbus_read_input_registers(_mb, address, nb, dest) < 0) {
+    return -1;
+  }
+
+  return 0;
 }
 
 int ModbusClient::coilWrite(int address, uint8_t value)
@@ -189,6 +212,17 @@ int ModbusClient::holdingRegisterWrite(int id, int address, uint16_t value)
   modbus_set_slave(_mb, id);
 
   if (modbus_write_register(_mb, address, value) < 0) {
+    return 0;
+  }
+
+  return 1;
+}
+
+int ModbusClient::holdingRegisterWrite(int id, int address, int nb, uint16_t *src)
+{
+  modbus_set_slave(_mb, id);
+
+  if (modbus_write_registers(_mb, address, nb, src) < 0) {
     return 0;
   }
 
